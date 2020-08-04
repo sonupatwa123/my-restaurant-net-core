@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div ng-app="offer" ng-controller="offerController">
+ 
+    <rst-list url="listurl" pagesize="10" columns="columns" configuration="gridConfiguration"></rst-list>
+</div>
+
+<script src="~/Scripts/app/services/restaurant.service.js"></script>
+<script src="~/Scripts/app/services/menu.service.js"></script>
+
+<script src="~/Scripts/app/services/offer.service.js"></script>
+<script src="~/Scripts/app/controller/offer.cnt.js"></script>
+<script src="~/Scripts/app/directive/directives.js"></script>
+

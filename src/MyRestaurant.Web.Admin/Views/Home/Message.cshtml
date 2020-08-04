@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div ng-app="httpApp" ng-controller="httpController">
+    <table class="table-bordered">
+        <tr>
+            <th>
+                Code
+            </th>
+            <th>
+                Info
+            </th>
+            <th>
+                Message
+            </th>
+        </tr>
+        <tr ng-repeat="det in details">
+
+            <td>
+                <span>{{det.code}}</span>
+            </td>
+            <td>
+                <span>{{det.info}}</span>
+            </td>
+            <td>
+                <span>{{det.message}}</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    (function () {
+        message.controller('httpController', ['$scope','$http',function ($scope, $http) {
+            var apiurl = 'http://localhost:57646/';
+            var apiAction = 'api/Home/GetMessageXml'
+            $http.get(apiurl + apiAction)
+            .then(function (response) {
+                $scope.details = response.data.responseobject.success.message;
+                console.log(response);
+            }), function (error) {
+                console.log(error, "can't get data.");
+            };
+        }]);
+    })();
+</script>

@@ -1,0 +1,190 @@
+﻿
+@{
+    ViewBag.Title = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-grids" ng-app="chef" ng-controller="chefController">
+    <div class="panel panel-primary" ng-init="getRestaurants()">
+        <div class="panel-heading">
+            <h3 class="panel-title">Offer Details</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="offer" novalidate>
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="dynamic-table_filter" class="dataTables_filter">
+
+                            <input type="hidden" id="Id" value="@ViewBag.Id" />
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">First Name</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input required ng-model="chefModel.firstname" id="firstname" name="cheffirstname" class="form-control1" type="text" placeholder="FIrst Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Last Name</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input type="text" required  name="cheflastname" ng-model="chefModel.lastname" class="form-control1" placeholder="Last Name"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Restaurant</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <select number-value name="restaurant" id="restaurant" ng-model="chefModel.restaurantid" class="form-control1">
+                                                <option value="">Select..</option>
+                                                <option ng-repeat="restaurant in restaurants" value="{{restaurant.id}}">{{restaurant.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Id Proof</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <select class="form-control1" id="prooftype" name="prooftype" ng-model="chefModel.prooftype" >
+                                                <option value="Adhaar card">
+                                                    Adhaar card
+                                                </option>
+                                                <option value="Voter Id">
+                                                    Voter ID
+                                                </option>
+                                                <option value="Deriving License">
+                                                    Deriving License
+                                                </option>
+                                                <option>
+                                                    Passport
+                                                </option>
+                                            </select>
+                                          
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">{{chefModel.prooftype}} Number</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input type="text" id="idproof" placeholder="Id proof Number" name="enddate" ng-model="chefModel.idproof" class="form-control1" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                          
+                            <div class="col-md-6" ng-if="cuisines.length>0">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Cuisines</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <multiple-autocomplete after-select-item="addItem"
+                                                                   ng-model="selectedCuisines"
+                                                                   after-remove-item="removeItem"
+                                                                   suggestions-arr="cuisines"
+                                                                   object-property="name">
+                                            </multiple-autocomplete>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Photo
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <rst-upload filetype="fileModel.filetype" filesize="fileModel.filesize"
+                                                        extensions="png,jpg,jpeg,tif,gif" action="fileModel.uploadurl"
+                                                        model="chefModel.image" class="col-xs-12"></rst-upload>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" ng-if="chefModel.image">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Photo   Preview
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <img ng-src="{{chefModel.image}}" height="50" width="50" style="border-radius:3px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Chef Rating  <span title="Rate your chef so user can see your top chef" class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input type="number" class="form-control1" name="chefrating" ng-model="chefModel.chefrating" max="5" min="1" />
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputFile" class="col-md-2 control-label">
+
+                            </label>
+                            <div class="col-md-8">
+                                <button ng-disabled="offer.$invalid" type="submit" ng-click="saveChef()" class="btn btn-default">Save</button>
+                                <input type="reset" ng-click="reset()" class="btn btn-default" value="Reset" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="~/Scripts/app/services/restaurant.service.js"></script>
+<script src="~/Scripts/app/services/chef.service.js"></script>
+<script src="~/Scripts/app/services/menu.service.js"></script>
+<script src="~/Scripts/app/controller/chef.cnt.js"></script>
+
+<script src="~/Scripts/app/directive/directives.js"></script>

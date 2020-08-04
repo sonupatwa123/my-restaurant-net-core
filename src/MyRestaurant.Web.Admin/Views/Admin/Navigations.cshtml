@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div ng-app="navigation" ng-controller="navigationController">
+    <input type="hidden" id="Id" value="@ViewBag.Id" />
+
+
+    <rst-list url="listurl" pagesize="10" columns="columns" configuration="gridConfiguration"></rst-list>
+</div>
+<script src="~/Scripts/app/services/navigation.service.js"></script>
+<script src="~/Scripts/app/controller/navigation.cnt.js"></script>
+<script src="~/Scripts/app/directive/directives.js"></script>

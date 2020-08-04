@@ -1,0 +1,55 @@
+﻿@using MyRestaurant.Web.Admin.Models;
+
+@{
+    ViewBag.Title = "Log in";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+<div class="main-page login-page">
+    <div ng-app="account" ng-controller="accountController">
+        <h3 class="title1">SignIn Page</h3>
+        <div class="widget-shadow" ng-init="clearToken()">
+            <div class="login-top">
+                <h4>Welcome to My Restaurant AdminPanel ! <br> Not a Member? <a href="/Account/Register">  Sign Up »</a> </h4>
+            </div>
+            <div class="login-body">
+                <form>
+                    <input required ng-model="LoginModel.username" name="username" type="text" class="user" placeholder="Enter your email">
+                    <input required ng-model="LoginModel.password" name="password" type="password" class="lock" placeholder="password">
+                    <button type="button" ng-click="login()" name="Sign In" value="Sign In">Sign In</button>
+                    <div class="forgot-grid">
+                        <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Remember me</label>
+                        <div class="forgot">
+                            <a href="#">forgot password?</a>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    <div class="login-page-bottom">
+        <h5> - OR -</h5>
+        <div class="social-btn"><a href="#"><i class="fa fa-facebook"></i><i>Sign In with Facebook</i></a></div>
+        <div class="social-btn sb-two"><a href="javascript:void(0)" ng-click="googleAuthenticate('Google')" id="signInButton"><i class="fa fa-google-plus"></i><i>Sign In with Google</i></a></div>
+    
+     </div>
+</div>
+
+<script src="~/Scripts/api/googleauthentication.js"></script>
+
+<script type="text/javascript">
+    (function () {
+        var ele = document.createElement('script');
+        ele.type = 'text/javascript';
+        ele.async = true;
+        ele.src = 'https://apis.google.com/js/client.js?onload=onLoadGapi';
+        var script = document.getElementsByTagName('script')[0];
+        script.parentNode.insertBefore(ele, script);
+    })();
+
+</script>
+<script src="~/Scripts/app.js"></script>
+<script src="~/Scripts/notify.js"></script>
+<script src="~/Scripts/app/model/Account.Models.js"></script>
+<script src="~/Scripts/app/services/account.service.js"></script>
+<script src="~/Scripts/app/controller/account.cnt.js"></script>

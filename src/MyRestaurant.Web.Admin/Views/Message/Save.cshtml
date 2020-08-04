@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewBag.Title = "Save Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="panel-grids" ng-app="message" ng-controller="messageController">
+    <div class="panel panel-primary" ng-init="getMessage()">
+        <div class="panel-heading">
+            <h3 class="panel-title">Message Info</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="message" novalidate>
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="dynamic-table_filter" class="dataTables_filter">
+
+                            <input type="hidden" id="Id" value="@ViewBag.Id" />
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Type</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                           <select ng-disabled="isEdit" ng-model="messageModel.type" name="type" class="form-control1">
+                                               <option value="Success">Success</option>
+                                               <option value="Error">Error</option>
+                                           </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Info</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                           <textarea name="info" ng-model="messageModel.info"  style="min-height:100px" class="form-control1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Message</label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea required ng-model="messageModel.message" 
+                                                      id="address1" 
+                                                      style="min-height:100px"
+                                                       class="form-control1" type="text"
+                                                       placeholder="Address 1" name="address1"></textarea>
+                                        </div>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputFile" class="col-md-2 control-label">
+
+                            </label>
+                            <div class="col-md-8">
+                                <button ng-disabled="message.$invalid" type="submit" ng-click="saveMessage()" class="btn btn-default">Save</button>
+                                <input type="reset" ng-disabled="message.$invalid" ng-click="reset()" class="btn btn-default" value="Reset" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
+<script src="~/Scripts/app/services/message.service.js"></script>
+<script src="~/Scripts/app/controller/message.cnt.js"></script>

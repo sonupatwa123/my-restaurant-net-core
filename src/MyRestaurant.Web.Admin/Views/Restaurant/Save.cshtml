@@ -1,0 +1,697 @@
+﻿
+@{
+    ViewBag.Title = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel-grids" ng-app="restaurant" ng-controller="restaurantController">
+    <div class="panel panel-primary" ng-init="loadCountries()">
+        <div class="panel-heading">
+            <h3 class="panel-title">Restaurant Info</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="restaurant" novalidate>
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                        <div id="dynamic-table_filter" class="dataTables_filter">
+
+                            <input type="hidden" id="Id" value="@ViewBag.Id" />
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Restaurant Name</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input required ng-model="restaurantModel.restaurantname" id="restaurantname" name="restaurantname" class="form-control1" type="text" placeholder="Restaurant Name">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">About Restaurant</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea required ng-model="restaurantModel.description" id="description" name="description" class="form-control1" type="text" placeholder="Description" style="min-height:100px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">About Cooking</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea required ng-model="restaurantModel.aboutcookingquality" id="aboutcookingquality" name="aboutcookingquality" class="form-control1" type="text" placeholder="Cooking Quality" style="min-height:100px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">About Food</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea required ng-model="restaurantModel.aboutfoodquality" id="aboutfoodquality" name="aboutfoodquality" class="form-control1" type="text" placeholder="Food Quality" style="min-height:100px"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Contact Number</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input ng-pattern="/^[0-9]{0,10}$/" required
+                                                   ng-model="restaurantModel.contactnumber" id="contactnumber" name="restaurantname" class="form-control1" type="text" placeholder="Contact Number">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Address 1</label>
+                                    <div class="col-md-6">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea required ng-model="restaurantModel.address.addressline1" id="address1" style="min-height:100px" class="form-control1" placeholder="Address 1" name="address1"></textarea>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn btn-default" ng-click="getcurrentLocation()">Detect</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Address 2</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <textarea ng-model="restaurantModel.address.addressline2" cols="5" style="min-height:100px" id="address2" class="form-control1" type="text" placeholder="Address 2" name="address2"></textarea>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Pin Code</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <input required ng-model="restaurantModel.address.postalcode" id="pincode" name="picode" class="form-control1" type="text" placeholder="Pin Code">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">Country</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <select number-value required ng-model="restaurantModel.address.countryid" id="country" class="form-control1" name="country">
+                                                <option value="0">Select..</option>
+                                                <option ng-repeat="country in countries" value="{{country.id}}">{{country.name}}</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label">State</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <select number-value required id="state" class="form-control1" ng-model="restaurantModel.address.stateid" name="state">
+                                                <option value="0">Select..</option>
+                                                <option ng-repeat="state in states" value="{{state.id}}">{{state.name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" ng-if="restaurantModel.address.cityid!='-1'">City</label>
+                                    <label class="col-md-4 control-label" ng-if="restaurantModel.address.cityid=='-1'">Other City</label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <select number-value ng-if="restaurantModel.address.cityid!='-1'" required id="city" class="form-control1" name="city" ng-model="restaurantModel.address.cityid">
+                                                <option value="0">Select..</option>
+                                                <option ng-repeat="city in cities" value="{{city.id}}">{{city.name}}</option>
+                                                <option value="-1">Other</option>
+                                            </select>
+                                            <input ng-if="restaurantModel.address.cityid=='-1'" type="text" class="form-control" placeholder="Other city" required />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Logo
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <rst-upload filetype="fileModel.filetype" filesize="fileModel.filesize"
+                                                        extensions="png,jpg,jpeg,tif,gif" action="fileModel.uploadurl"
+                                                        model="restaurantModel.logo" class="col-xs-12"></rst-upload>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group" ng-if="restaurantModel.logo">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Logo   Preview
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <img ng-src="{{restaurantModel.logo}}" height="50" width="50" style="border-radius:3px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Header Image
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <rst-upload filetype="fileModel.filetype" filesize="fileModel.filesize"
+                                                        extensions="png,jpg,jpeg,tif,gif" action="fileModel.uploadurl"
+                                                        model="restaurantModel.headerimage" class="col-xs-12"></rst-upload>(Add a good resulation image to display users.)
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                </div>
+                            <div class="col-md-6">
+                                <div class="form-group" ng-if="restaurantModel.headerimage">
+                                    <label for="exampleInputFile" class="col-md-4 control-label">
+                                        Header Image Preview
+                                    </label>
+                                    <div class="col-md-8">
+                                        <div class="input-icon right">
+                                            <i class="fa fa-fw fa-spin"></i>
+                                            <img ng-src="{{restaurantModel.headerimage}}" height="50" width="50" style="border-radius:3px;" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Restaurant Gallery</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row no-margin">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="dataTables_filter">
+                                        <div class="row no-margin">
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-4">
+                                                <rst-upload multiple="true" filetype="fileModel.filetype" filesize="fileModel.filesize"
+                                                            extensions="png,jpg,jpeg,tif,gif" action="fileModel.uploadurl"
+                                                            model="restaurantModel.restaurantgalleries" class="col-xs-12"></rst-upload>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div>
+                                        <a href="javascript:void(0)" ng-repeat="gallery in restaurantModel.restaurantgalleries" ng-href="{{gallery.filename}}" target="_blank">
+                                            <img  alt="img" ng-src="{{gallery.filename}}" style="padding:5px;" width="100" height="100" />
+                                        </a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" ng-controller="menuController" ng-init="getRelatedData()">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Menu</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row no-margin">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="dataTables_filter">
+                                        <div class="row no-margin">
+                                            <div class="col-md-8"></div>
+                                            <div class="col-md-4">
+                                                <add-edit-menu menu="menuModel" title="Add Menu" ok="okMenu" cancel="cancelMenu">
+                                                    <btn>
+                                                        <button type="button" class="btn btn-info" data-toggle="modal"
+                                                                data-target="#menuModal_">
+                                                            Add Menu
+                                                        </button>
+                                                    </btn>
+                                                </add-edit-menu>
+
+                                            </div>
+                                        </div>
+                                        <div class="row" role="row" ng-show="restaurantModel.menus.length>0">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Menu Name
+                                                        </th>
+                                                        <th>
+                                                            Menu Description
+                                                        </th>
+                                                        <th>
+                                                            Logo
+                                                        </th>
+                                                        <th>
+                                                            Category
+                                                        </th>
+                                                        <th>
+                                                            Action
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="menu in restaurantModel.menus" ng-if="!menu.isdeleted">
+                                                    <tr>
+                                                        <td>
+                                                            <a href="javascript:void(0)" ng-click="showmenuitems(menu)">
+                                                                <span ng-if="!menu.showitems" class="glyphicon glyphicon-chevron-right"></span>
+                                                                <span ng-if="menu.showitems" class="glyphicon glyphicon-chevron-down"></span>
+                                                            </a>
+                                                            {{menu.menuname}}
+                                                        </td>
+                                                        <td>
+                                                            {{menu.menudescription}}
+                                                        </td>
+                                                        <td>
+                                                            <img width="50" height="50" ng-src="{{menu.menulogo}}" />
+
+                                                        </td>
+                                                        <td>
+                                                            {{ menuCategoryMap[menu.menucategoryid]}}
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-1">
+                                                                <add-edit-menu menu="menu" title="Edit Menu">
+                                                                    <btn>
+
+                                                                        <a href="javascript:void(0)" class="green"
+                                                                           data-toggle="modal"
+                                                                           data-target="{{'#menuModal_'+menu.guid}}">
+                                                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                                        </a>
+
+                                                                    </btn>
+                                                                </add-edit-menu>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <rst-popup btn-title="Remove Menu" popup-header="Remove Menu" modalid="{{'modal_'+menu.guid}}" ok-callback="removeMenu" model="menu">
+                                                                    <btn>
+                                                                        <a class="red ng-scope" data-toggle="modal" data-target="{{'#modal_'+menu.guid}}" href="javascript:void(0)" title="add menu items">
+                                                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                                        </a>
+
+                                                                    </btn>
+                                                                    <panel-body>
+                                                                        <span>All items will be removed from menu,Are you sure to Remove?</span>
+                                                                    </panel-body>
+                                                                </rst-popup>
+
+
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <add-edit-menu-item menu="menu">
+                                                                    <btn>
+                                                                        <a class="red ng-scope"
+                                                                           data-toggle="modal"
+                                                                           data-target="{{'#menuItemModal_'+menu.guid+'_'+menuItemModel.guid}}"
+                                                                           href="javascript:void(0)" title="add menu items">
+                                                                            <i class="ace-icon fa fa-cutlery"></i>
+                                                                        </a>
+                                                                    </btn>
+                                                                </add-edit-menu-item>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-show="menu.showitems" class="refresh" ng-class="{'animate':menu.showitems}">
+                                                        <td colspan="5">
+                                                            <table class="table table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            Item Name
+                                                                        </th>
+                                                                        <th>
+                                                                            Item Description
+                                                                        </th>
+                                                                        <th>
+                                                                            Logo
+                                                                        </th>
+                                                                        <th>
+                                                                            Item Price
+                                                                        </th>
+                                                                        <th>Delivery Type</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="item in menu.menuitems" ng-if="!item.isdeleted">
+                                                                        <td>
+                                                                            {{item.itemname}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item.itemdetails}}
+                                                                        </td>
+                                                                        <td>
+                                                                            <img width="50" height="50" ng-src="{{item.logo}}" />
+                                                                        </td>
+                                                                        <td>
+                                                                            {{item.itemperunitprice}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{deliveryTypeMap[item.deliverytypeid]}}
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <div class="col-md-1">
+                                                                                <add-edit-menu-item item="item" menu="menu">
+                                                                                    <btn>
+
+                                                                                        <a href="javascript:void(0)" class="green"
+                                                                                           data-toggle="modal"
+                                                                                           data-target="{{'#menuItemModal_'+menu.guid+'_'+item.guid}}">
+                                                                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                                                        </a>
+
+                                                                                    </btn>
+                                                                                </add-edit-menu-item>
+                                                                            </div>
+                                                                            <div class="col-md-1">
+                                                                                <a class="red ng-scope" href="javascript:void(0)"
+                                                                                   ng-click="removeMenuItem(menu,item)">
+                                                                                    <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                                                </a>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" ng-init="loadMap()">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Delivery Area</h3>
+                        </div>
+
+                        <div class="panel-body">
+
+                            <div class="row no-margin">
+                                <div class="col-md-12">
+                                    <input type="search" id="pac-input" class="form-control" />
+                                    <div id="map" class="google-map"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-8">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>
+                                                        Lattitude
+                                                    </th>
+                                                    <th>
+                                                        Longitude
+                                                    </th>
+                                                    <th>
+                                                        Address
+                                                    </th>
+                                                    <th>Remove</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="zone in restaurantModel.deliveryareas" ng-if="!zone.isdeleted">
+                                                    <td>
+                                                        {{zone.latitude}}
+                                                    </td>
+                                                    <td>
+                                                        {{zone.longitude}}
+                                                    </td>
+                                                    <td>
+                                                        {{zone.address}}
+                                                    </td>
+                                                    <td>
+                                                        <a class="red ng-scope" href="javascript:void(0)"
+                                                           ng-click="removeDeliveryZone(zone)">
+                                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="exampleInputFile" class="col-md-2 control-label">
+
+                                            </label>
+                                            <div class="col-md-8">
+                                                <button class="btn btn-default" ng-click="restMap()">Reset Map</button>
+                                                <button ng-disabled="deliveryAreaSet" class="btn btn-default" ng-click="setDeliveryArea()">Set Delivery Area</button>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Delivery Charges</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row no-margin">
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="dataTables_filter">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="dataTables_filter">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Distance From </label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-fw fa-spin"></i>
+                                                                    <input ng-model="deliveryfeesModel.distancefrom"
+                                                                           id="distancefrom" name="distancefrom"
+                                                                           class="form-control1" type="number"
+                                                                           placeholder="Distance From">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Distance To</label>
+                                                            <div class="col-md-8">
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-fw fa-spin"></i>
+                                                                    <input ng-pattern="/^[0-9]{0,10}$/"
+                                                                           ng-model="deliveryfeesModel.distanceto"
+                                                                           id="distanceto"
+                                                                           name="distanceto"
+                                                                           class="form-control1"
+                                                                           type="number"
+                                                                           placeholder="Distance To">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label class="col-md-4 control-label">Charges</label>
+                                                            <div class="col-md-6">
+                                                                <div class="input-icon right">
+                                                                    <i class="fa fa-fw fa-spin"></i>
+                                                                    <input ng-pattern="/^[0-9]{0,10}$/"
+                                                                           ng-model="deliveryfeesModel.fees"
+                                                                           id="distanceto"
+                                                                           name="distanceto"
+                                                                           class="form-control1"
+                                                                           type="text"
+                                                                           placeholder="Fees">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+                                                <div class="col-md-5"></div>
+                                                <div class="col-md-7">
+                                                    <button ng-disabled="restaurant.fees.$valid"
+                                                            type="submit"
+                                                            ng-click="addDeliveryFees()"
+                                                            class="btn btn-default">
+                                                        Add
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row" role="row" ng-show="restaurantModel.deliveryfees.length>0">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Distance From
+                                                        </th>
+                                                        <th>
+                                                            Distance To
+                                                        </th>
+                                                        <th>
+                                                            Charges
+                                                        </th>
+                                                        <th>
+                                                            Action
+                                                        </th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody ng-repeat="fees in restaurantModel.deliveryfees" ng-if="!fees.isdeleted">
+                                                    <tr>
+
+                                                        <td>
+                                                            {{fees.distancefrom}}
+                                                        </td>
+
+                                                        <td>
+                                                            {{fees.distanceto}}
+                                                        </td>
+                                                        <td>
+                                                            {{fees.fees}}
+                                                        </td>
+                                                        <td>
+                                                            <div class="col-md-1">
+                                                                <a href="javascript:void(0)" class="green"
+                                                                   data-toggle="modal" ng-click="editDeliveryFees(fees)">
+                                                                    <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="col-md-1">
+                                                                <rst-popup btn-title="Remove Menu" popup-header="Remove Menu"
+                                                                           modalid="{{'modal_'+fees.guid}}"
+                                                                           ok-callback="removeDeliveryFees" model="fees">
+                                                                    <btn>
+                                                                        <a class="red ng-scope" data-toggle="modal" data-target="{{'#modal_'+fees.guid}}" href="javascript:void(0)" title="Remove charge">
+                                                                            <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                                                        </a>
+
+                                                                    </btn>
+                                                                    <panel-body>
+                                                                        <span>Are you sure you want to remove this delivery fees?</span>
+                                                                    </panel-body>
+                                                                </rst-popup>
+
+
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="exampleInputFile" class="col-md-2 control-label">
+
+                            </label>
+                            <div class="col-md-8">
+                                <button ng-disabled="restaurant.$invalid" type="submit" ng-click="saveRestaurant()" class="btn btn-default">Save</button>
+                                <input type="reset" ng-disabled="restaurant.$invalid" ng-click="reset()" class="btn btn-default" value="Reset" />
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-md-4"></div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript" src="~/Scripts/app/services/restaurant.service.js"></script>
+<script src="~/Scripts/app/services/menu.service.js"></script>
+<script type="text/javascript" src="~/Scripts/app/controller/restaurant.cnt.js"></script>
+<script src="~/Scripts/app/directive/directives.js"></script>
+
+<script type="text/javascript">
+
+</script>

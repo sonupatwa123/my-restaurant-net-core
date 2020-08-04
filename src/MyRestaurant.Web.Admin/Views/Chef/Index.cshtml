@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div ng-app="chef" ng-controller="chefController">
+    <input type="hidden" id="Id" value="@ViewBag.Id" />
+
+
+    <rst-list url="listurl" pagesize="10" columns="columns" configuration="gridConfiguration"></rst-list>
+</div>
+<script src="~/Scripts/app/services/menu.service.js"></script>
+<script src="~/Scripts/app/services/chef.service.js"></script>
+<script src="~/Scripts/app/services/restaurant.service.js"></script>
+<script src="~/Scripts/app/controller/chef.cnt.js"></script>
+<script src="~/Scripts/app/directive/directives.js"></script>
